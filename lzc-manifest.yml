@@ -1,0 +1,55 @@
+application:
+  subdomain: onecli
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://onecli:10254/
+
+  ingress:
+    - protocol: tcp
+      port: 10255
+      service: onecli
+services:
+  postgres:
+    image: registry.lazycat.cloud/czyt/library/postgres:79f9432f2f98cea4
+    environment:
+      - POSTGRES_USER=onecli
+      - POSTGRES_PASSWORD=onecli
+      - POSTGRES_DB=onecli
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U onecli
+      interval: 5s
+      timeout: 3s
+      start_period: 15s
+      retries: 10
+    binds:
+      - /lzcapp/var/postgres:/var/lib/postgresql
+
+  onecli:
+    # ghcr.io/onecli/onecli:1.14.1
+    image: registry.lazycat.cloud/czyt/onecli/onecli:08e238bc4fc39987
+    user: root
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://onecli:onecli@postgres:5432/onecli
+{{if .U.auth_with_local}}
+      - AUTH_MODE=local
+{{else}}
+      - AUTH_MODE=oauth
+      - NEXTAUTH_SECRET={{ stable_secret "nextauth" }}
+      - GOOGLE_CLIENT_ID={{.U.google_client_id}}
+      - GOOGLE_CLIENT_SECRET={{.U.google_client_secret}}
+{{end}}
+      - SECRET_ENCRYPTION_KEY={{ stable_secret "encryption" |substr 0 32 | b64enc}}
+      - API_BASE_URL=${LAZYCAT_APP_DOMAIN}:10255
+      - GATEWAY_BASE_URL=${LAZYCAT_APP_DOMAIN}:10255
+    binds:
+      - /lzcapp/var/app-data:/app/data
+
+ext_config:
+  enable_document_access: true

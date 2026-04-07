@@ -1,0 +1,31 @@
+params:
+  - id: auth_with_local
+    type: bool
+    name: "Auth with Local Mode"
+    description: "Auth mode: local (single-user, no login required) or oauth (multi-user OAuth mode)"
+    optional: false
+    default_value: "true"
+
+  - id: google_client_id
+    type: secret
+    name: "Google OAuth Client ID"
+    description: "Google OAuth Client ID (required for Google login)"
+    optional: true
+
+  - id: google_client_secret
+    type: secret
+    name: "Google OAuth Client Secret"
+    description: "Google OAuth Client Secret (required for Google login)"
+    optional: true
+
+locales:
+  zh:
+    auth_with_local:
+      name: "是否本地认证模式"
+      description: "认证模式：local（单用户本地模式，无需登录）或 oauth（多用户 OAuth 模式）"
+    google_client_id:
+      name: "Google OAuth Client ID"
+      description: "Google OAuth Client ID（如需启用 Google 登录，请填写）"
+    google_client_secret:
+      name: "Google OAuth Client Secret"
+      description: "Google OAuth Client Secret（如需启用 Google 登录，请填写）"
