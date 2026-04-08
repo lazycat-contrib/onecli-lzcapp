@@ -4,7 +4,7 @@ name: OneCli
 description: "Open-source credential vault, give your AI agents access to services without exposing keys"
 min_os_version: "1.5.0"
 author: "OneCli Team"
-license: MIT
+license: Apache-2.0
 homepage: https://github.com/onecli/onecli
 
 locales:
