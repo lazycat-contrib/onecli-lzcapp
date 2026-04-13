@@ -29,8 +29,8 @@ services:
       - /lzcapp/var/postgres:/var/lib/postgresql
 
   onecli:
-    # ghcr.io/onecli/onecli:1.14.1
-    image: registry.lazycat.cloud/czyt/onecli/onecli:08e238bc4fc39987
+    # ghcr.io/onecli/onecli:1.15.1
+    image: registry.lazycat.cloud/czyt/onecli/onecli:914df23a1d30109b
     user: root
     restart: unless-stopped
     depends_on:
@@ -50,6 +50,3 @@ services:
       - GATEWAY_BASE_URL=${LAZYCAT_APP_DOMAIN}:10255
     binds:
       - /lzcapp/var/app-data:/app/data
-
-ext_config:
-  enable_document_access: true
