@@ -1,4 +1,5 @@
-pkgout: ./
+manifest: ./lzc-manifest.yml
+pkgout: ./dist
 
 # icon: 应用图标路径
 icon: ./icon.png
