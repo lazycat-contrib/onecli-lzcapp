@@ -28,8 +28,8 @@ services:
       - /lzcapp/var/postgres:/var/lib/postgresql
   onecli:
     # ghcr.io/onecli/onecli:1.15.1
-    # upstream: ghcr.io/onecli/onecli:1.44.0
-    image: registry.lazycat.cloud/czyt/onecli/onecli:ad2721e9e82c8db8
+    # upstream: ghcr.io/onecli/onecli:1.45.0
+    image: registry.lazycat.cloud/czyt/onecli/onecli:f037710747038449
     user: root
     restart: unless-stopped
     depends_on:
